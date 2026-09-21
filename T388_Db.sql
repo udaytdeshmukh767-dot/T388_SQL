@@ -35,6 +35,8 @@ insert into Employeee values
 (1009, 'Pranaya Kumar', 'IT', 50000, 'Male', 28), 
 (1010, 'Hina Sharma', 'HR', 75000, 'Female', 26);
 
+drop table Employeee;
+
 delete from employeee where Gender="MALE";
 delete from employeee where Age >25;
 
@@ -66,3 +68,128 @@ where gender="male";
 
 update Employeee set bonus=salary*0.05; 
 desc Employeee; -- (This is for comment)
+
+use T388_db;
+select * from employeee
+where department ="It" or department ="finance";
+
+select * from employeee
+where department in ("It","finance");
+
+
+use T388_db;
+create table Kisan_info (
+ID int unique not null,
+name varchar(50) unique not null,
+age int check (age>=18),
+email_Id varchar(40) default "dummy@gmail.com"
+);
+
+insert into kisan_info
+values
+(104,"vignesh",22,default);
+
+alter table kisan_info modify age int check (age>=15);
+select * from kisan_info;
+desc kisan_info;
+
+select distinct department from employeee;
+
+-- ORDER CLAUSE
+use T388_db;
+select * from employeee order by department desc;
+select * from employeee where gender ="male" order by fullname;
+
+-- W G H O
+-- WHERE ,GROUP BY -[HAVING],ORDER BY
+
+select * from employeee limit 5;
+
+-- GROUP BY -[HAVING]
+select department from employeee group by department;
+select department,count(EmployeeeId) from employeee group by department;
+select gender,count(EmployeeeId) from employeee group by gender;
+select department,sum(salary) from employeee group by department;
+select department,avg(salary) from employeee group by department;
+select department,avg(salary), sum(salary) from employeee group by department;
+
+select department,avg(salary) as Avg_salary, sum(salary) as Total_salary from employeee group by department;
+ 
+-- HAVING CLAUSE(along with GROUP CLAUSE)
+select department,count(*) from employeee group by department having sum(salary) >150000;
+select department,count(*) from employeee group by department having avg(age) >27;
+select department,avg(age),count(*) from employeee group by department having sum(salary) >150000;
+  
+  -- shows current date
+select now();
+
+  
+  CREATE TABLE Projects (
+
+ProjectId INT PRIMARY KEY AUTO_INCREMENT,
+ProjectName VARCHAR(200) NOT NULL,
+EmployeeId INT,
+StartDate DATETIME,
+EndDate DATETIME
+);
+
+
+INSERT INTO Projects VALUES
+
+(1,'Develop Ecommerse Website from
+scratch', 1003, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY)),
+
+(2,'WordPress Website for our company',
+1002, NOW(), DATE_ADD(NOW(), INTERVAL 45 DAY)),
+
+(3,'Manage our Company Servers', 1007,
+NOW(), DATE_ADD(NOW(), INTERVAL 45 DAY)),
+
+(4,'Hosting account is not working', 1009,
+NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY)),
+
+(5,'MySQL database from my desktop
+application', 1010, NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY)),
+
+
+(6,'Develop new WordPress plugin for my business
+website', NULL, NOW(), DATE_ADD(NOW(), INTERVAL 10 DAY)),
+
+(7,'Migrate web application and database to
+new server', NULL, NOW(), DATE_ADD(NOW(), INTERVAL 5 DAY)),
+
+(8,'Android Application development', 1004,
+NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY)),
+
+(9,'Hosting account is not working', 1001,
+NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY)),
+
+(10,'MySQL database from my desktop
+application', 1008, NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY)),
+
+(11,'Develop new WordPress plugin for my
+business website', NULL, NOW(), DATE_ADD(NOW(), INTERVAL 10 DAY));
+
+
+select * from projects;
+select *,datediff(enddate, startdate) as Duration from projects;
+
+select *,datediff(enddate, startdate) as Duration from projects
+where datediff(enddate, startdate) = 45;
+
+ALTER TABLE Projects
+ADD Duration int ;
+select * from projects;
+update projects set duration = datediff(enddate,startdate);
+
+select duration,count(*) from projects group by duration;
+select duration,count(*) from projects group by duration having count(*)>=2;
+
+select duration,count(*) from projects 
+where duration>=20
+group by duration 
+having count(*)>=2
+order by duration desc limit 2;
+
+
+
