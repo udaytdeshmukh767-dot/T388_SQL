@@ -191,5 +191,68 @@ group by duration
 having count(*)>=2
 order by duration desc limit 2;
 
+select * from employeee limit 3,5;
+select distinct department from employeee;
+select distinct gender from employeee;
+select distinct age from employeee;
+select * from projects;
+select * from projects where employeeid is not  null;
+
+ update projects set employeeid = 1003 where projectid =6;
+ 
+
+-- IN , Between and LIKE
+select * from employeee where age between 25 and 28;
+
+-- (IN operator)
+select * from employeee where employeeeid in ( 1003,1005,1006);
+
+-- (alternative for in operator)
+select * from employeee where employeeeid = 1003
+or employeeeid = 1004
+or employeeeid = 1005;
 
 
+-- (AND Operator)
+select * from employeee where
+age in (23,28)
+and department ="IT"
+and employeeeid IN (1008,1001);
+select * from employeee;
+
+select * from simple where fullname like "a%";
+select * from simple where fullname like "_u%";
+select * from simple where fullname like "%t%";
+select * from simple where fullname like "a_%";
+select * from simple where fullname like "a%t";
+select * from simple where fullname Not like "a%t";
+
+-- Aggregrate function 
+select avg(salary) from employeee;
+select sum(salary) from employeee;
+select max(salary) from employeee;
+select min(salary) from employeee;
+select count(*) as Total_EMP ,
+avg(salary) as Average,
+sum(salary) as Total_Salary from employeee;
+
+
+-- Math Function 
+select abs(300-800);
+select abs(6*(-7));
+select (6*(-7));
+
+select abs(datediff(startdate,enddate))
+as duration from projects;
+
+-- Divide
+select mod(12,7); 
+
+-- celing and floor function 
+select ceil(33.8);
+select floor(33.8);
+
+-- truncate function
+select truncate(12456.8765432,3);
+select truncate(12456.8765432,0);
+select truncate(12456.8765432,-2);  
