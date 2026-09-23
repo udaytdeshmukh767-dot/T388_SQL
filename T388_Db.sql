@@ -256,3 +256,69 @@ select floor(33.8);
 select truncate(12456.8765432,3);
 select truncate(12456.8765432,0);
 select truncate(12456.8765432,-2);  
+
+
+-- Exponential function  
+select exp(2);
+
+-- power Function
+select power(2,4);
+
+-- SQRT function
+select sqrt(169);
+select *,sqrt(salary) from employeee; -- give the square root of perticular value
+
+
+
+--   STRING()
+select concat("good"," ","morning") as remarks; -- it will combine two words or given function
+
+select *,concat(fullname,"-",department)as code from employeee;
+
+select *,lower(fullname) as newname, upper(fullname) as CAPITALNAME from employeee;-- it will give the value in form of  small and captial 
+
+-- doing concat in employeee table
+alter table employeee modify EMAIL varchar(50);
+update employeee set EMAIL =concat(fullname,"@gmail.com");
+select * from employeee;
+
+-- REPLACE FUNC
+select replace("hello everyone,good morning","morning","night" ) as statement;
+select fullname,replace(fullname,"Jones","patil") as changed from employeee;
+
+-- REVERSE FUNC
+select fullname,
+reverse(fullname)
+from employeee; -- it will reverse the name eg uday-yadu
+
+-- LENGTH FUNC
+select fullname,length(fullname)
+from employeee;-- it will give the legth of the character eg uday-4
+
+-- SUBSTRING FUN
+select substring("Maharashrta",1,3);
+
+-- TRIM FUN
+select FULLNAME,length(FULLNAME) as actual_length,
+ltrim(FULLNAME) as lefttrim,length(ltrim(FULLNAME)) as LTRIM_Length,
+rtrim(FULLNAME) as righttrim,length(rtrim(FULLNAME)) as RTRIM_Length,
+trim(FULLNAME) as Both_sides_Trim,length(trim(FULLNAME)) as ALL_TRIM_Length from trimmer;
+
+-- SUB QUERIES
+select * from employeee;
+select age from employeee where employeeeid =1002;
+
+select * from employeee
+where age=(select age from employeee where fullname="Mary Smith");
+
+select * from employeee
+where salary=(select salary from employeee where fullname="John Doe");
+
+select * from employeee
+where department=(select department from employeee where fullname="John Doe");
+
+select max(salary) from employeee;
+
+select max(salary) from employeee 
+where salary <(select max(salary) from employeee);
+
