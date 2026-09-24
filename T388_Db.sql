@@ -316,9 +316,54 @@ where salary=(select salary from employeee where fullname="John Doe");
 
 select * from employeee
 where department=(select department from employeee where fullname="John Doe");
+-- (= is use for one particular value)
 
+
+-- highest salary
 select max(salary) from employeee;
 
+-- 2nd highest salary
 select max(salary) from employeee 
 where salary <(select max(salary) from employeee);
+
+-- 3rd highest salary
+select max(salary) from employeee
+where salary <(select max(salary) from employeee
+               where salary <(select max(salary) from employeee)
+               );
+               
+               
+               
+-- MULTIPLE SUBQUERIES
+select * from employeee;
+
+select age from employeee where employeeeid in(1002,1003);
+
+select * from employeee
+where age in -- (in is written when we use more than one value)
+(select age from employeee where employeeeid in(1002,1003));
+
+select distinct salary from employeee; -- it showes all the salary which is given
+
+select * from employeee
+where salary >= any(select salary from employeee where employeeeid between 1001 and 1003);  
+-- ANY will give greater value for all 1001 and 1002 and 1003 also
+
+select * from employeee
+where salary < any(select salary from employeee where employeeeid between 1001 and 1003);
+-- ANY (<) IT WILL GIVE LESS THAN ALL THE 1003,1002 AND 1001 also
+
+select * from employeee
+where salary >= all(select salary from employeee where employeeeid between 1001 and 1003);  
+-- ALL (>greater than) will give all the Largest value which you have entered  in all the values   
+-- eg 1001=35000 1002=50000 , 1003=75000 it will give all the values which are greater than 75000 (directly the greatest value)
+
+select * from employeee
+where salary < all(select salary from employeee where employeeeid between 1002 and 1003); 
+-- ALL (<less than ) will give values which are less than then the given values 1002 and 1003;
+
+
+
+
+
 
