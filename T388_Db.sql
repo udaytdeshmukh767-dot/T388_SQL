@@ -365,5 +365,52 @@ where salary < all(select salary from employeee where employeeeid between 1002 a
 
 
 
+-- JOINS -- 
+use t388_db;
+
+select * from name_t388;
+select * from salary_t388;
+
+-- INNER JOINS
+
+select salary_t388.id,name,salary
+from name_t388 
+join 
+salary_t388
+on name_t388.id =salary_t388.id;
+
+
+-- LEFT JOIN -- 
+
+-- (it will only compare the left join that is name_t388 and 
+-- compare it with right join salary_t388 and give the values according to left join
+select name_t388.id,name,salary
+from 
+name_t388
+left join 
+salary_t388
+on salary_t388.id = name_t388.id;
+
+
+-- RIGHT JOIN --
+select name_t388.id,name,salary
+from 
+salary_t388
+right join 
+name_t388
+on salary_t388.id = name_t388.id;
+
+select salary_t388.id,name,salary
+from 
+name_t388
+right join 
+salary_t388
+on salary_t388.id = name_t388.id;
+
+
+
+
+
+
 
 
