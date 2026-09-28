@@ -408,7 +408,31 @@ salary_t388
 on salary_t388.id = name_t388.id;
 
 
-
+-- OUTER JOINS --
+use t388_db;
+select * from name_t388;
+select * from salary_t388;
+select n.ID as Name_ID,name,salary
+from
+name_t388 as n
+left join
+salary_t388 as s
+on s.ID = n.ID;
+ 
+ 
+ 
+ 
+select n.ID as Name_ID,s.ID as Salary_ID ,name,salary
+from name_t388 as n
+left join
+salary_t388 as s
+on s.ID = n.ID
+union
+select n.ID as Name_ID,s.ID as Salary_ID ,name,salary
+from name_t388 as n
+right join
+salary_t388 as s
+on s.ID = n.ID;
 
 
 
