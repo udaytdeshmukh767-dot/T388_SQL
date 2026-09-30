@@ -434,7 +434,63 @@ right join
 salary_t388 as s
 on s.ID = n.ID;
 
+-- PRimary ,Foreign key --
+
+create database FK_T388;
+use FK_T388;
+create table students
+(ID int primary key auto_increment,
+Name varchar(20));
+insert into students values
+(1,"Asmit");
+
+desc students;
+select * from students;
+insert into students(name) values
+("Suman");
+
+create table info 
+(ID int,
+scores int,
+foreign key(id) references students(id)
+);
+
+insert into info values(1,300),(2,400);
+select * from info;
+
+-- SCHEMA --  
+create database Project;
+CREATE TABLE Employee ( 
+ ID INT PRIMARY KEY, 
+ Name VARCHAR(100) NOT NULL, 
+ Age INT, 
+ Salary DECIMAL(10, 2) 
+); 
+
+CREATE TABLE Project ( 
+ ProjectID INT PRIMARY KEY, 
+ ProjectName VARCHAR(100) NOT NULL, 
+ ID INT, 
+ FOREIGN KEY (ID) REFERENCES Employee(ID) 
+ ON UPDATE CASCADE 
+ ON DELETE CASCADE 
+);
+INSERT INTO Employee (ID, Name, Age, Salary) VALUES 
+(101, 'Alice Smith', 29, 75000.00), 
+(102, 'Bob Jones', 34, 82000.50), 
+(103, 'Charlie Brown', 41, 95000.00), 
+(104, 'Diana Prince', 26, 68000.00); 
+
+INSERT INTO Project (ProjectID, ProjectName, ID) VALUES 
+(1, 'Website Redesign', 101), 
+(2, 'Cloud Migration', 101), 
+(3, 'Mobile App Launch', 102), 
+(4, 'Data Analytics Pipeline', 103);
+
+select * from Employee;
+select * from project;
 
 
-
+-- UPDATE CASCADE DELETE CASCADE --
+update employee set id = 500 where id = 101;
 
