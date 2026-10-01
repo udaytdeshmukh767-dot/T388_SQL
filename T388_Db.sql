@@ -494,3 +494,112 @@ select * from project;
 -- UPDATE CASCADE DELETE CASCADE --
 update employee set id = 500 where id = 101;
 
+
+
+-- WINDOW FUNCTION --
+-- it give the table according to department
+select 
+*,
+Fullname,
+Department,
+Salary,
+row_number() over (PARTITION BY Department) As RANKINDEPARTMENT
+From Employeee;
+
+-- it give the values according to salary --
+select 
+Fullname,
+Department,
+Salary,
+row_number() over (PARTITION BY Salary) As RANKINSALARY
+From Employeee;
+
+
+
+-- give salary order wise by using (order by) --
+select 
+fullname,
+department,
+salary,
+rank() OVER (order by salary) as RANK_INSALARY
+from Employeee order by department;
+
+-- dense rank give the values 1,2,3,4 it doesnot skip the values
+select 
+fullname,
+salary,
+dense_rank() OVER (order by salary) as RANK_INSALARY
+from Employeee;
+
+-- GROUP BY FUNCTION --
+select Department, SUm(salary)as total_salary,avg(salary) as average_salary from employeee group By Department;
+
+-- window function--
+-- Agrigate function --
+
+-- give AVG SALARY --
+select 
+employeeeid,
+Fullname,
+Department,
+Salary,
+avg(salary) OVER (PARTITION by department) AS DepartmentAVGSALARY
+From 
+employeee
+ORDER by
+Department,salary DESC;
+
+
+-- GIVE BOTH AVG and SUM of SALARY --
+select 
+employeeeid,
+Fullname,
+Department,
+Salary,
+avg(salary) OVER (PARTITION by department) AS DepartmentAVGSALARY,
+sum(salary) OVER (PARTITION by department) AS DepartmentAVGSALARY
+From 
+employeee
+ORDER by
+Department,salary DESC;
+
+ -- LAG() FUNCTION --
+ select 
+ employeeeID,
+ Fullname,
+ Department,
+ Age,
+ salary,
+ LAg(Salary,1,0) over (PARTITION BY DEPARTMENT ORDER BY AGE ASC) AS PreciousEmployeeesalaryBYAGE
+ from
+ Employeee
+ order by 
+ Department,Age;
+ 
+ select 
+ employeeeID,
+ Fullname,
+ Department,
+ Age,
+ salary,
+ LAg(Salary,1,0) over (ORDER BY AGE ) AS PreciousEmployeeesalaryBYAGE,
+ (salary -(LAg(Salary,1,0) over (ORDER BY Salary ))) AS diff 
+ from
+ Employeee
+ order by 
+ Department,Age;
+ 
+
+-- LEAD --
+ select 
+ employeeeID,
+ Fullname,
+ Department,
+ Age,
+ salary,
+ lead(salary,2,"-") OVER (order by salary) AS PreviousEmployeeSalaryBYAGE
+ from 
+ employeee
+ order by
+ Department,age;
+ 
